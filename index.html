@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>OOP Dart - Sesi 4: Polimorfisme & Abstraksi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+      color: #f1f5f9;
+      line-height: 1.5;
+      padding-bottom: 3rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.5);
+    }
+
+    header h1 {
+      font-size: 2.7rem;
+      background: linear-gradient(135deg, #a5f3fc, #60a5fa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1e293b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(2px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #2d3a5e;
+      transition: transform 0.1s ease, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 12px 28px rgba(59, 130, 246, 0.2);
+    }
+
+    .card h2 {
+      font-size: 1.7rem;
+      margin-bottom: 0.75rem;
+      color: #93c5fd;
+      border-left: 5px solid #3b82f6;
+      padding-left: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin: 1rem 0 0.5rem;
+      color: #b9e0ff;
+    }
+
+    .desc {
+      margin-bottom: 1rem;
+      color: #cbd5f0;
+    }
+
+    pre {
+      background: #0f172a;
+      border-radius: 1rem;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.85rem;
+      border: 1px solid #2d3a5e;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+
+    .btn-run {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      margin-top: 0.5rem;
+    }
+
+    .btn-run:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    hr {
+      border-color: #2d3a5e;
+      margin: 1rem 0;
+    }
+
+    .grid-2 {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-top: 1px solid #1e293b;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    /* modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      width: 90%;
+      max-width: 1100px;
+      height: 85%;
+      border-radius: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #3b82f6;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #334155;
+      color: #e2e8f0;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .close {
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #94a3b8;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: white;
+    }
+
+    .modal-body {
+      flex: 1;
+      padding: 0.5rem;
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 1rem;
+      background: #fefefe;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🧩 Polimorfisme & Abstraksi</h1>
+  <p class="subhead">Dart OOP — Sesi 4 | Runtime Polymorphism · Abstract Class · Interface · Static Members</p>
+  <div class="badge">👩‍💻 Ratu Klarisa Rahadianti | 251410010 | SI2A</div>
+</header>
+
+<div class="container">
+  <!-- RINGKASAN MATERI -->
+  <div class="card">
+    <h2>📖 Rangkuman Materi (Slide 1–16)</h2>
+    <ul style="margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem;">
+      <li>🔹 <strong>Polimorfisme</strong> : objek child dapat diperlakukan sebagai tipe parent (runtime via overriding).</li>
+      <li>🔹 <strong>is & as</strong> : pengecekan tipe & casting aman.</li>
+      <li>🔹 <strong>Abstraksi</strong> : menyembunyikan detail, fokus ke "apa". Dart gunakan <code>abstract class</code> dan <code>interface class</code>.</li>
+      <li>🔹 <strong>Abstract class</strong> : tidak bisa diinstansiasi, bisa punya method konkret & abstrak.</li>
+      <li>🔹 <strong>Interface</strong> : kontrak penuh, class mengimplementasi dengan <code>implements</code> (multiple).</li>
+      <li>🔹 <strong>extends vs implements</strong> : "is-a" vs "can-do".</li>
+      <li>🔹 <strong>Static members</strong> : milik class, diakses via ClassName. Berguna untuk utility.</li>
+      <li>🔹 Manfaat : fleksibel, mudah diperluas, kode reusable, maintainability tinggi.</li>
+    </ul>
+  </div>
+
+  <!-- ========== DEMONSTRASI KONSEP DARI SLIDE ========== -->
+  <div class="card">
+    <h2>🎭 Polimorfisme dengan Inheritance</h2>
+    <div class="desc">Referensi parent bisa menampung objek child. Method yang dipanggil sesuai objek asli (runtime).</div>
+    <pre><code>// Bentuk, Lingkaran, Persegi
+abstract class Bentuk {
+  void gambar();
+}
+
+class Lingkaran extends Bentuk {
+  @override
+  void gambar() => print('Menggambar lingkaran ⚪');
+}
+
+class Persegi extends Bentuk {
+  @override
+  void gambar() => print('Menggambar persegi 🟩');
+}
+
+void main() {
+  Bentuk bentuk1 = Lingkaran();
+  Bentuk bentuk2 = Persegi();
+  bentuk1.gambar();  // lingkaran
+  bentuk2.gambar();  // persegi
+}</code></pre>
+    <button class="btn-run" data-code="Ly8gUG9saW1vcmZpc21lIHdpdGggSW5oZXJpdGFuY2UKYWJzdHJhY3QgY2xhc3MgQmVudHVrIHsKICB2b2lkIGdhbWJhcigpOwp9CgpjbGFzcyBMaW5na2FyYW4gZXh0ZW5kcyBCZW50dWsgewogIEBvdmVycmlkZQogIHZvaWQgZ2FtYmFyKCkgPT4gcHJpbnQoJ01lbmdnYW1iYXIgbGluZ2thcmFuIOKcqicpOwp9CgpjbGFzcyBQZXJzZWdpIGV4dGVuZHMgQmVudHVrIHsKICBAb3ZlcnJpZGUKICB2b2lkIGdhbWJhcigpID0+IHByaW50KCdNZW5nZ2FtYmFyIHBlcnNlZ2kg8p+pqCcpOwp9Cgp2b2lkIG1haW4oKSB7CiAgQmVudHVrIGJlbnR1azEgPSBMaW5na2FyYW4oKTsKICBCZW50dWsgYmVudHVrMiA9IFBlcnNlZ2koKTsKICBiZW50dWsxLmdhbWJhcigpOwogIGJlbnR1azIuZ2FtYmFyKCk7Cn0=">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>🔍 Operator is dan as</h2>
+    <div class="desc">Cek tipe objek dan konversi aman.</div>
+    <pre><code>class Kendaraan {}
+class Mobil extends Kendaraan {
+  void klakson() => print('Tin! Tin!');
+}
+
+void main() {
+  Kendaraan k = Mobil();
+  if (k is Mobil) {
+    (k as Mobil).klakson();
+  }
+  // safe casting with as?
+  (k as Mobil?)?.klakson();
+}</code></pre>
+    <button class="btn-run" data-code="Y2xhc3MgS2VuZGFyYWFuIHt9CmNsYXNzIE1vYmlsIGV4dGVuZHMgS2VuZGFyYWFuIHsKICB2b2lkIGtsYWtzb24oKSA9PiBwcmludCgnVGluISBUaW4hJyk7Cn0KCnZvaWQgbWFpbigpIHsKICBLZW5kYXJhYW4gayA9IE1vYmlsKCk7CiAgaWYgKGsgaXMgTW9iaWwpIHsKICAgIChrIGFzIE1vYmlsKS5rbGFrc29uKCk7CiAgfQogIChrIGFzIE1vYmlsPyk/LmtsYWtzb24oKTsKfQ==">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>🐾 Praktik 1 – Polimorfisme dengan List Hewan</h2>
+    <pre><code>abstract class Hewan {
+  void bersuara();
+}
+class Kucing extends Hewan {
+  @override void bersuara() => print('Meong 🐱');
+}
+class Anjing extends Hewan {
+  @override void bersuara() => print('Guk guk 🐶');
+}
+class Burung extends Hewan {
+  @override void bersuara() => print('Cuit cuit 🐦');
+}
+void main() {
+  List&lt;Hewan&gt; hewanList = [Kucing(), Anjing(), Burung()];
+  for (var h in hewanList) {
+    h.bersuara();
+  }
+}</code></pre>
+    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgSGV3YW4gewogIHZvaWQgYmVyc3VhcmEoKTsKfQpjbGFzcyBLdWNpbmcgZXh0ZW5kcyBIZXdhbiB7CiAgQG92ZXJyaWRlCiAgdm9pZCBiZXJzdWFyYSgpID0+IHByaW50KCdNZW9uZyDwn5CxJyk7Cn0KY2xhc3MgQW5qaW5nIGV4dGVuZHMgSGV3YW4gewogIEBvdmVycmlkZQogIHZvaWQgYmVyc3VhcmEoKSA9PiBwcmludCgnR3VrIGd1ayDwn5C2Jyk7Cn0KY2xhc3MgQnVydW5nIGV4dGVuZHMgSGV3YW4gewogIEBvdmVycmlkZQogIHZvaWQgYmVyc3VhcmEoKSA9PiBwcmludCgnQ3VpdCBjdWl0IPCfkKYnKTsKfQp2b2lkIG1haW4oKSB7CiAgTGlzdDxIZXdhbj4gaGV3YW5MaXN0ID0gW0t1Y2luZygpLCBBbmppbmcoKSwgQnVydW5nKCldOwogIGZvciAodmFyIGggaW4gaGV3YW5MaXN0KSB7CiAgICBoLmJlcnN1YXJhKCk7CiAgfQp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>🧱 Abstract Class & Method</h2>
+    <pre><code>abstract class Kendaraan {
+  String? merk;
+  void start(); // abstract
+  void stop() => print('Kendaraan berhenti');
+}
+class Mobil extends Kendaraan {
+  @override
+  void start() => print('Mobil ${merk ?? 'tanpa merk'} menyala');
+}
+void main() {
+  Mobil avanza = Mobil();
+  avanza.merk = 'Toyota';
+  avanza.start();
+  avanza.stop();
+}</code></pre>
+    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgS2VuZGFyYWFuIHsKICBTdHJpbmc/IG1lcms7CiAgdm9pZCBzdGFydCgpOyAvLyBhYnN0cmFrdAogIHZvaWQgc3RvcCgpID0+IHByaW50KCdLZW5kYXJhYW4gYmVyaGVudGknKTsKfQpjbGFzcyBNb2JpbCBleHRlbmRzIEtlbmRhcmFhbiB7CiAgQG92ZXJyaWRlCiAgdm9pZCBzdGFydCgpID0+IHByaW50KCdNb2JpbCAke21lcmsgPz8gJ3RhbnBhIG1lcmsnfSBtZW55YWxhJyk7Cn0Kdm9pZCBtYWluKCkgewogIE1vYmlsIGF2YW56YSA9IE1vYmlsKCk7CiAgYXZhbnphLm1lcmsgPSAnVG95b3RhJzsKICBhdmFuemEuc3RhcnQoKTsKICBhdmFuemEuc3RvcCgpOwp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>🛸 Interface (implements)</h2>
+    <pre><code>interface class Flyable {
+  void terbang() => print('Terbang...');
+}
+class Bird implements Flyable {
+  @override void terbang() => print('Burung terbang tinggi');
+}
+class Plane implements Flyable {
+  @override void terbang() => print('Pesawat terbang cepat');
+}
+void main() {
+  Flyable f1 = Bird();
+  Flyable f2 = Plane();
+  f1.terbang();
+  f2.terbang();
+}</code></pre>
+    <button class="btn-run" data-code="aW50ZXJmYWNlIGNsYXNzIEZseWFibGUgewogIHZvaWQgdGVyYmFuZygpID0+IHByaW50KCdUZXJiYW5nLi4uJyk7Cn0KY2xhc3MgQmlyZCBpbXBsZW1lbnRzIEZseWFibGUgewogIEBvdmVycmlkZQogIHZvaWQgdGVyYmFuZygpID0+IHByaW50KCdCdXJ1bmcgdGVyYmFuZyB0aW5nZ2knKTsKfQpjbGFzcyBQbGFuZSBpbXBsZW1lbnRzIEZseWFibGUgewogIEBvdmVycmlkZQogIHZvaWQgdGVyYmFuZygpID0+IHByaW50KCdQZXNhd2F0IHRlcmJhbmcgY2VwYXQnKTsKfQp2b2lkIG1haW4oKSB7CiAgRmx5YWJsZSBmMSA9IEJpcmQoKTsKICBGbHlhYmxlIGYyID0gUGxhbmUoKTsKICBmMS50ZXJiYW5nKCk7CiAgZjIudGVyYmFuZygpOwp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>📐 Static Members (MathUtils)</h2>
+    <pre><code>class MathUtils {
+  static double pi = 3.14159;
+  static int add(int x, int y) => x + y;
+}
+void main() {
+  print('PI = ${MathUtils.pi}');
+  print('10 + 20 = ${MathUtils.add(10, 20)}');
+}</code></pre>
+    <button class="btn-run" data-code="Y2xhc3MgTWF0aFV0aWxzIHsKICBzdGF0aWMgZG91YmxlIHBpID0gMy4xNDE1OTsKICBzdGF0aWMgaW50IGFkZChpbnQgeCwgaW50IHkpID0+IHggKyB5Owp9CnZvaWQgbWFpbigpIHsKICBwcmludCgnUEkgPSAke01hdGhVdGlscy5waX0nKTsKICBwcmludCgnMTAgKyAyMCA9ICR7TWF0aFV0aWxzLmFkZCgxMCwgMjApfScpOwp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>💳 Praktik 2 – Sistem Pembayaran (Interface)</h2>
+    <pre><code>abstract class MetodePembayaran {
+  void bayar(double jumlah);
+}
+class KartuKredit implements MetodePembayaran {
+  @override void bayar(double jumlah) => print('💳 Bayar $jumlah pakai Kartu Kredit');
+}
+class EWallet implements MetodePembayaran {
+  @override void bayar(double jumlah) => print('📱 Bayar $jumlah via E-Wallet');
+}
+class Tunai implements MetodePembayaran {
+  @override void bayar(double jumlah) => print('💵 Bayar $jumlah dengan Tunai');
+}
+void main() {
+  List&lt;MetodePembayaran&gt; methods = [KartuKredit(), EWallet(), Tunai()];
+  for (var m in methods) {
+    m.bayar(75000);
+  }
+}</code></pre>
+    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgTWV0b2RlUGVtYmF5YXJhbiB7CiAgdm9pZCBiYXlhcihkb3VibGUganVtbGFoKTsKfQpjbGFzcyBLYXJ0dUtSZWRpdCBpbXBsZW1lbnRzIE1ldG9kZVBlbWJheWFyYW4gewogIEBvdmVycmlkZQogIHZvaWQgYmF5YXIoZG91YmxlIGp1bWxhaCkgPT4gcHJpbnQoJ+KUjvKliyBCYXlhciAkanVtbGFoIHBha2FpIEthcnR1IEtyZWRpdCcpOwp9CmNsYXNzIEVXYWxsZXQgaW1wbGVtZW50cyBNZXRvZGVQZW1iYXlhcmFuIHsKICBAb3ZlcnJpZGUKICB2b2lkIGJheWFyKGRvdWJsZSBqdW1sYWgpID0+IHByaW50KCfwn5GxIEJheWFyICRqdW1sYWggdmlhIEUtV2FsbGV0Jyk7Cn0KY2xhc3MgVHVuYWkgaW1wbGVtZW50cyBNZXRvZGVQZW1iYXlhcmFuIHsKICBAb3ZlcnJpZGUKICB2b2lkIGJheWFyKGRvdWJsZSBqdW1sYWgpID0+IHByaW50KCfwn5K1IEJheWFyICRqdW1sYWggZGVuZ2FuIFR1bmFpJyk7Cn0Kdm9pZCBtYWluKCkgewogIExpc3Q8TWV0b2RlUGVtYmF5YXJhbj4gbWV0aG9kcyA9IFtLYXJ0dUtSZWRpdCgpLCBFV2FsbGV0KCksIFR1bmFpKCldOwogIGZvciAodmFyIG0gaW4gbWV0aG9kcykgewogICAgbS5iYXlhckBNeSBudWxsIDogNzUwMDA7CiAgfQp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <!-- ========== JAWABAN SLIDE 17 & CHALLENGE ========== -->
+  <div class="card">
+    <h2>📌 Jawaban Soal Slide 17 – Pekerja & Polimorfisme</h2>
+    <div class="desc">1. Abstract class Pekerja dengan method bekerja(). 2. Tiga implementasi: Programmer, Dokter, Guru. 3. List&lt;Pekerja&gt; dan polimorfisme.</div>
+    <pre><code>abstract class Pekerja {
+  void bekerja();  // abstract
+  void istirahat() => print('Istirahat sebentar');
+}
+
+class Programmer implements Pekerja {
+  @override
+  void bekerja() => print('💻 Programmer sedang menulis kode Dart');
+}
+
+class Dokter implements Pekerja {
+  @override
+  void bekerja() => print('🏥 Dokter sedang memeriksa pasien');
+}
+
+class Guru implements Pekerja {
+  @override
+  void bekerja() => print('📚 Guru sedang mengajar di kelas');
+}
+
+void main() {
+  List&lt;Pekerja&gt; daftarPekerja = [Programmer(), Dokter(), Guru()];
+  for (var p in daftarPekerja) {
+    p.bekerja();
+    p.istirahat();
+    print('---');
+  }
+}</code></pre>
+    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgUGVrZXJqYSB7CiAgdm9pZCBiZWtlcmphKCk7CiAgdm9pZCBpc3RpcmFoYXQoKSA9PiBwcmludCgnSXN0aXJhaGF0IHNlYmVudGFyJyk7Cn0KY2xhc3MgUHJvZ3JhbW1lciBpbXBsZW1lbnRzIFBla2VyamEgewogIEBvdmVycmlkZQogIHZvaWQgYmVrZXJqYSgpID0+IHByaW50KCfwn5K8IFByb2dyYW1tZXIgc2VkYW5nIG1lbnVsaXMga29kZSBEYXJ0Jyk7Cn0KY2xhc3MgRG9rdGVyIGltcGxlbWVudHMgUGVrZXJqYSB7CiAgQG92ZXJyaWRlCiAgdm9pZCBiZWtlcmphKCkgPT4gcHJpbnQoJ/CfpKEgRG9rdGVyIHNlZGFuZyBtZW1lcmlrc2EgcGFzaWVuJyk7Cn0KY2xhc3MgR3VydSBpbXBsZW1lbnRzIFBla2VyamEgewogIEBvdmVycmlkZQogIHZvaWQgYmVrZXJqYSgpID0+IHByaW50KCfwn5OaIEd1cnUgc2VkYW5nIG1lbmdhamFyIGRpIGtlbGFzJyk7Cn0Kdm9pZCBtYWluKCkgewogIExpc3Q8UGVrZXJqYT4gZGFmdGFyUGVrZXJqYSA9IFtQcm9ncmFtbWVyKCksIERva3RlcigpLCBHdXJ1KCldOwogIGZvciAodmFyIHAgaW4gZGFmdGFyUGVrZXJqYSkgewogICAgcC5iZWtlcmphKCk7CiAgICBwLmlzdGlyYWhhdCgpOwogICAgcHJpbnQoJy0tLScpOwogIH0KfQ==">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>📱 Tablet – Multiple Inheritance dengan implements/mixins</h2>
+    <div class="desc">4. Class Tablet mewarisi kemampuan Komputer, Kamera, Telepon (multiple inheritance disimulasikan dengan implements).</div>
+    <pre><code>class Komputer {
+  void komputasi() => print('💻 Menjalankan sistem operasi');
+}
+class Kamera {
+  void ambilFoto() => print('📸 Mengambil foto');
+}
+class Telepon {
+  void telpon(String nomor) => print('📞 Menelpon $nomor');
+}
+
+class Tablet implements Komputer, Kamera, Telepon {
+  @override
+  void komputasi() => print('💻 Tablet menjalankan aplikasi produktif');
+  @override
+  void ambilFoto() => print('📸 Tablet mengambil foto selfie');
+  @override
+  void telpon(String nomor) => print('📞 Tablet melakukan panggilan video ke $nomor');
+}
+
+void main() {
+  Tablet myTab = Tablet();
+  myTab.komputasi();
+  myTab.ambilFoto();
+  myTab.telpon('08123456789');
+}</code></pre>
+    <button class="btn-run" data-code="Y2xhc3MgS29tcHV0ZXIgewogIHZvaWQga29tcHV0YXNpKCkgPT4gcHJpbnQoJ/CfhKsgTWVuamFsYW5rYW4gc2lzdGVtIG9wZXJhc2knKTsKfQpjbGFzcyBLYW1lcmEgewogIHZvaWQgYW1iaWxGb3RvKCkgPT4gcHJpbnQoJ/CfjLggTWVuZ2FtYmlsIGZvdG8nKTsKfQpjbGFzcyBUZWxlcG9uIHsKICB2b2lkIHRlbHBvbihTdHJpbmcgbm9tb3IpID0+IHByaW50KCfwn5ORIE1lbmVsb25vICRub21vcicpOwp9CgpjbGFzcyBUYWJsZXQgaW1wbGVtZW50cyBLb21wdXRlciwgS2FtZXJhLCBUZWxlcG9uIHsKICBAb3ZlcnJpZGUKICB2b2lkIGtvbXB1dGFzaSgpID0+IHByaW50KCfwn4SrIFRhYmxldCBtZW5qYWxhbmthbiBhcGxpa2FzaSBwcm9kdWt0aWYnKTsKICBAb3ZlcnJpZGUKICB2b2lkIGFtYmlsRm90bygpID0+IHByaW50KCfwn4y4IFRhYmxldCBtZW5nYW1iaWwgZm90byBzZWxmaWUnKTsKICBAb3ZlcnJpZGUKICB2b2lkIHRlbHBvbihTdHJpbmcgbm9tb3IpID0+IHByaW50KCfwn5GRIFRhYmxldCBtZWxha3VrYW4gcGFuZ2dpbGFuIHZpZGVvIGtlICRub21vcicpOwp9Cgp2b2lkIG1haW4oKSB7CiAgVGFibGV0IG15VGFiID0gVGFibGV0KCk7CiAgbXlUYWIua29tcHV0YXNpKCk7CiAgbXlUYWIuYW1iaWxGb3RvKCk7CiAgbXlUYWIudGVscG9uKCcwODEyMzQ1Njc4OScpOwp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>🧮 MathUtils – Static Methods (Faktorial, Prima, Random, Rata2, Median)</h2>
+    <pre><code>import 'dart:math';
+
+class MathUtils {
+  static int factorial(int n) {
+    if (n &lt; 0) throw ArgumentError('Harus >=0');
+    return n &lt;= 1 ? 1 : n * factorial(n - 1);
+  }
+  static bool isPrime(int n) {
+    if (n &lt; 2) return false;
+    for (int i = 2; i &lt;= sqrt(n); i++) {
+      if (n % i == 0) return false;
+    }
+    return true;
+  }
+  static double roundToDecimals(double value, int decimals) {
+    double mod = pow(10, decimals).toDouble();
+    return (value * mod).round() / mod;
+  }
+  static int randomInt(int min, int max) => min + Random().nextInt(max - min + 1);
+  static double randomDouble(double min, double max) => min + Random().nextDouble() * (max - min);
+  static double average(List&lt;num&gt; numbers) => numbers.isEmpty ? 0 : numbers.reduce((a,b)=>a+b) / numbers.length;
+  static double median(List&lt;num&gt; numbers) {
+    if (numbers.isEmpty) return 0;
+    var sorted = List&lt;num&gt;.from(numbers)..sort();
+    int mid = sorted.length ~/ 2;
+    if (sorted.length.isEven) {
+      return (sorted[mid - 1] + sorted[mid]) / 2;
+    } else {
+      return sorted[mid].toDouble();
+    }
+  }
+}
+
+void main() {
+  print('Faktorial 5: ${MathUtils.factorial(5)}');
+  print('17 prima? ${MathUtils.isPrime(17)}');
+  print('3.14159 2 desimal: ${MathUtils.roundToDecimals(3.14159, 2)}');
+  print('Random int 1-10: ${MathUtils.randomInt(1,10)}');
+  print('Random double 0-1: ${MathUtils.randomDouble(0,1).toStringAsFixed(4)}');
+  print('Rata2 [2,4,6]: ${MathUtils.average([2,4,6])}');
+  print('Median [3,1,5,7]: ${MathUtils.median([3,1,5,7])}');
+}</code></pre>
+    <button class="btn-run" data-code="aW1wb3J0ICdkYXJ0Om1hdGgnOwoKY2xhc3MgTWF0aFV0aWxzIHsKICBzdGF0aWMgaW50IGZhY3RvcmlhbChpbnQgbikgewogICAgaWYgKG4gPCAwKSB0aHJvdyBBcmd1bWVudEVycm9yKCdIYXJ1cyA+PTAnKTsKICAgIHJldHVybiBuIDw9IDEgPyAxIDogbiAqIGZhY3RvcmlhbChuIC0gMSk7CiAgfQogIHN0YXRpYyBib29sIGlzUHJpbWUoaW50IG4pIHsKICAgIGlmIChuIDwgMikgcmV0dXJuIGZhbHNlOwogICAgZm9yIChpbnQgaSA9IDI7IGkgPD0gc3FydChuKTsgaSsrKSB7CiAgICAgIGlmIChuICUgaSA9PSAwKSByZXR1cm4gZmFsc2U7CiAgICB9CiAgICByZXR1cm4gdHJ1ZTsKICB9CiAgc3RhdGljIGRvdWJsZSByb3VuZFRvRGVjaW1hbHMoZG91YmxlIHZhbHVlLCBpbnQgZGVjaW1hbHMpIHsKICAgIGRvdWJsZSBtb2QgPSBwb3coMTAsIGRlY2ltYWxzKS50b0RvdWJsZSgpOwogICAgcmV0dXJuICh2YWx1ZSAqIG1vZCkucm91bmQoKSAvIG1vZDsKICB9CiAgc3RhdGljIGludCByYW5kb21JbnQoaW50IG1pbiwgaW50IG1heCkgPT4gbWluICsgUmFuZG9tKCkubmV4dEludChtYXggLSBtaW4gKyAxKTsKICBzdGF0aWMgZG91YmxlIHJhbmRvbURvdWJsZShkb3VibGUgbWluLCBkb3VibGUgbWF4KSA9PiBtaW4gKyBSYW5kb20oKS5uZXh0RG91YmxlKCkgKiAobWF4IC0gbWluKTsKICBzdGF0aWMgZG91YmxlIGF2ZXJhZ2UoTGlzdDxudW0+IG51bWJlcnMpID0+IG51bWJlcnMuaXNFbXB0eSA/IDAgOiBudW1iZXJzLnJlZHVjZSgoYSxiKT0+YStiKSAvIG51bWJlcnMubGVuZ3RoOwogIHN0YXRpYyBkb3VibGUgbWVkaWFuKExpc3Q8bnVtPiBudW1iZXJzKSB7CiAgICBpZiAobnVtYmVycy5pc0VtcHR5KSByZXR1cm4gMDsKICAgIHZhciBzb3J0ZWQgPSBMaXN0PG51bT4uZnJvbShudW1iZXJzKQogICAgICAuLi5zb3J0KCk7CiAgICBpbnQgbWlkID0gc29ydGVkLmxlbmd0aCB+LyAyOwogICAgaWYgKHNvcnRlZC5sZW5ndGguaXNFdmVuKSB7CiAgICAgIHJldHVybiAoc29ydGVkW21pZCAtIDFdICsgc29ydGVkW21pZF0pIC8gMjsKICAgIH0gZWxzZSB7CiAgICAgIHJldHVybiBzb3J0ZWRbbWlkXS50b0RvdWJsZSgpOwogICAgfQogIH0KfQoKdm9pZCBtYWluKCkgewogIHByaW50KCdGYWt0b3JpYWwgNTogJHtNYXRoVXRpbHMuZmFjdG9yaWFsKDUpfScpOwogIHByaW50KCcxNyBwcmltYT8gJHtNYXRoVXRpbHMuaXNQcmltZSgxNyl9Jyk7CiAgcHJpbnQoJzMuMTQxNTkgMiBkZXNpbWFsOiAke01hdGhVdGlscy5yb3VuZFRvRGVjaW1hbHMoMy4xNDE1OSwgMil9Jyk7CiAgcHJpbnQoJ1JhbmRvbSBpbnQgMS0xMDogJHtNYXRoVXRpbHMucmFuZG9tSW50KDEsMTApfScpOwogIHByaW50KCdSYW5kb20gZG91YmxlIDAtMTogJHtNYXRoVXRpbHMucmFuZG9tRG91YmxlKDAsMSkudG9TdHJpbmdBc0ZpeGVkKDQpfScpOwogIHByaW50KCdSYXRhMiBbMiw0LDZdOiAke01hdGhVdGlscy5hdmVyYWdlKFsyLDQsNl0pfScpOwogIHByaW50KCdNZWRpYW4gWzMsMSw1LDddOiAke01hdGhVdGlscy5tZWRpYW4oWzMsMSw1LDddKX0nKTsKfQ==">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>🎵 Challenge: MediaPlayer + Playable/Pausable</h2>
+    <div class="desc">Abstract MediaPlayer, interface Playable & Pausable, class AudioPlayer & VideoPlayer.</div>
+    <pre><code>abstract class MediaPlayer {
+  void info() => print('Media Player aktif');
+}
+interface class Playable {
+  void play();
+}
+interface class Pausable {
+  void pause();
+}
+class AudioPlayer implements MediaPlayer, Playable, Pausable {
+  @override void play() => print('🎵 Memutar audio...');
+  @override void pause() => print('⏸ Audio dijeda');
+}
+class VideoPlayer implements MediaPlayer, Playable, Pausable {
+  @override void play() => print('🎬 Memutar video...');
+  @override void pause() => print('⏸ Video dijeda');
+}
+void main() {
+  List&lt;Playable&gt; players = [AudioPlayer(), VideoPlayer()];
+  for (var p in players) {
+    p.play();
+    if (p is Pausable) p.pause();
+    print('---');
+  }
+}</code></pre>
+    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgTWVkaWFQbGF5ZXIgewogIHZvaWQgaW5mbygpID0+IHByaW50KCdNZWRpYSBQbGF5ZXIgYWt0aWYnKTsKfQppbnRlcmZhY2UgY2xhc3MgUGxheWFibGUgewogIHZvaWQgcGxheSgpOwp9CmludGVyZmFjZSBjbGFzcyBQYXVzYWJsZSB7CiAgdm9pZCBwYXVzZSgpOwp9CmNsYXNzIEF1ZGlvUGxheWVyIGltcGxlbWVudHMgTWVkaWFQbGF5ZXIsIFBsYXlhYmxlLCBQYXVzYWJsZSB7CiAgQG92ZXJyaWRlCiAgdm9pZCBwbGF5KCkgPT4gcHJpbnQoJ/CfkJUgTWVtdXRhciBhdWRpby4uLicpOwogIEBvdmVycmlkZQogIHZvaWQgcGF1c2UoKSA9PiBwcmludCgn4o+8IEF1ZGlvIGRpamVkYScpOwp9CmNsYXNzIFZpZGVvUGxheWVyIGltcGxlbWVudHMgTWVkaWFQbGF5ZXIsIFBsYXlhYmxlLCBQYXVzYWJsZSB7CiAgQG92ZXJyaWRlCiAgdm9pZCBwbGF5KCkgPT4gcHJpbnQoJ/CfjKwgTWVtdXRhciB2aWRlby4uLicpOwogIEBvdmVycmlkZQogIHZvaWQgcGF1c2UoKSA9PiBwcmludCgn4o+8IFZpZGVvIGRpamVkYScpOwp9CnZvaWQgbWFpbigpIHsKICBMaXN0PFBsYXlhYmxlPiBwbGF5ZXJzID0gW0F1ZGlvUGxheWVyKCksIFZpZGVvUGxheWVyKCldOwogIGZvciAodmFyIHAgaW4gcGxheWVycykgewogICAgcC5wbGF5KCk7CiAgICBpZiAocCBpcyBQYXVzYWJsZSkgKHAgYXMgUGF1c2FibGUpLnBhdXNlKCk7CiAgICBwcmludCgnLS0tJyk7CiAgfQp9">▶ Jalankan di DartPad</button>
+  </div>
+
+  <div class="card">
+    <h2>📘 Kesimpulan & Poin Penting</h2>
+    <ul>
+      <li>✔ Polimorfisme memungkinkan kode fleksibel dan mudah dikembangkan.</li>
+      <li>✔ Abstract class menyediakan template dengan metode abstrak/konkret.</li>
+      <li>✔ Interface (implements) memaksa kelas mengimplementasikan seluruh kontrak.</li>
+      <li>✔ Static members berguna untuk fungsi utilitas tanpa instansiasi objek.</li>
+      <li>✔ Kombinasi semua konsep menciptakan arsitektur yang modular dan scalable.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <p>📁 Resume Sesi 4 – Polimorfisme & Abstraksi | Kode siap eksekusi di DartPad | Dibuat untuk GitHub Pages</p>
+  <p>Ratu Klarisa Rahadianti — 251410010 — SI2A</p>
+</footer>
+
+<div id="codeModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">DartPad Runner</h3>
+      <span class="close" id="closeModalBtn">&times;</span>
+    </div>
+    <div class="modal-body">
+      <iframe id="dartpadIframe" title="DartPad" src="about:blank"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('codeModal');
+  const modalIframe = document.getElementById('dartpadIframe');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const modalTitle = document.getElementById('modalTitle');
+
+  function openDartPad(codeBase64, programTitle) {
+    // encode code properly if needed (already base64? but we'll pass via 'code' parameter with URI encoding)
+    // The data-code attribute is already base64-encoded dart code. Decode for display? Not needed.
+    // Build dartpad embed URL with code parameter (URL encoded base64 decoded code)
+    try {
+      const decodedCode = atob(codeBase64);
+      const codeParam = encodeURIComponent(decodedCode);
+      const url = `https://dartpad.dev/embed-dart.html?code=${codeParam}&run=true`;
+      modalIframe.src = url;
+      modalTitle.innerText = programTitle;
+      modal.style.display = 'flex';
+    } catch(e) {
+      modalTitle.innerText = 'Error loading code';
+      modalIframe.src = 'about:blank';
+      modal.style.display = 'flex';
+    }
+  }
+
+  document.querySelectorAll('.btn-run').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const codeB64 = btn.getAttribute('data-code');
+      const card = btn.closest('.card');
+      const programName = card?.querySelector('h2')?.innerText || 'Program Dart';
+      if (codeB64) {
+        openDartPad(codeB64, programName);
+      } else {
+        alert('Kode tidak tersedia');
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modalIframe.src = 'about:blank';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      modalIframe.src = 'about:blank';
+    }
+  });
+</script>
+</body>
+</html>
