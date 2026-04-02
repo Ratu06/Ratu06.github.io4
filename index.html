@@ -132,12 +132,6 @@
       margin: 1rem 0;
     }
 
-    .grid-2 {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -230,15 +224,58 @@
       <li>🔹 <strong>Interface</strong> : kontrak penuh, class mengimplementasi dengan <code>implements</code> (multiple).</li>
       <li>🔹 <strong>extends vs implements</strong> : "is-a" vs "can-do".</li>
       <li>🔹 <strong>Static members</strong> : milik class, diakses via ClassName. Berguna untuk utility.</li>
-      <li>🔹 Manfaat : fleksibel, mudah diperluas, kode reusable, maintainability tinggi.</li>
+      <li>🔹 <strong>Manfaat</strong> : fleksibel, mudah diperluas, kode reusable, maintainability tinggi.</li>
     </ul>
   </div>
+
+   <!-- ========== DEMONSTRASI KONSEP DARI SLIDE ========== -->
+  <div class="card">
+    <h2>🎭 Pewarisan</h2>
+    <div class="desc">Inheritance: extends keyword</div>
+    <div class="desc">super() untuk panggil constructor parent</div>
+    <div class="desc">@override untuk override method</div>
+    <div class="desc">Contoh:</div>
+    <pre><code>
+//Nama: Ratu Klarisa
+//NIM:251410010
+//Kelas: SI2A
+      
+class hewan {
+  void bersuara() => print('.....');
+}
+class Kucing extends Hewan {
+@override
+  void bersuara() => print('Meong');
+}
+void main() {
+  Kucing kucing = Kucing();
+  kucing.bersuara();
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2f66745eb29ac8b74e88568d46ac1737&run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>🎭 Pengantar Polimorfisme</h2>
+    <p><strong>Arti:</strong> "Banyak bentuk" (poly = banyak, morph = bentuk)</p>
+    <p><strong>Konsep:</strong> Objek dari subclass dapat diperlakukan sebagai objek dari superclass</p>
+    <p><strong>Contoh:</strong> Semua Kucing , Anjing , Burung adalah Hewan</p>
+<p><strong>Tipe:</strong></p>
+<p><strong>i.Compile-time polymorphism:</strong> Method overloading (tidak didukung Dart)</p>
+<p><strong>ii.Runtime polymorphism:</strong> Method overriding (didukung Dart)</p>
+  </div>
+
 
   <!-- ========== DEMONSTRASI KONSEP DARI SLIDE ========== -->
   <div class="card">
     <h2>🎭 Polimorfisme dengan Inheritance</h2>
     <div class="desc">Referensi parent bisa menampung objek child. Method yang dipanggil sesuai objek asli (runtime).</div>
-    <pre><code>// Bentuk, Lingkaran, Persegi
+    <pre><code>
+//Nama: Ratu Klarisa
+//NIM:251410010
+//Kelas: SI2A
+      
+// Bentuk, Lingkaran, Persegi
 abstract class Bentuk {
   void gambar();
 }
@@ -259,13 +296,29 @@ void main() {
   bentuk1.gambar();  // lingkaran
   bentuk2.gambar();  // persegi
 }</code></pre>
-    <button class="btn-run" data-code="Ly8gUG9saW1vcmZpc21lIHdpdGggSW5oZXJpdGFuY2UKYWJzdHJhY3QgY2xhc3MgQmVudHVrIHsKICB2b2lkIGdhbWJhcigpOwp9CgpjbGFzcyBMaW5na2FyYW4gZXh0ZW5kcyBCZW50dWsgewogIEBvdmVycmlkZQogIHZvaWQgZ2FtYmFyKCkgPT4gcHJpbnQoJ01lbmdnYW1iYXIgbGluZ2thcmFuIOKcqicpOwp9CgpjbGFzcyBQZXJzZWdpIGV4dGVuZHMgQmVudHVrIHsKICBAb3ZlcnJpZGUKICB2b2lkIGdhbWJhcigpID0+IHByaW50KCdNZW5nZ2FtYmFyIHBlcnNlZ2kg8p+pqCcpOwp9Cgp2b2lkIG1haW4oKSB7CiAgQmVudHVrIGJlbnR1azEgPSBMaW5na2FyYW4oKTsKICBCZW50dWsgYmVudHVrMiA9IFBlcnNlZ2koKTsKICBiZW50dWsxLmdhbWJhcigpOwogIGJlbnR1azIuZ2FtYmFyKCk7Cn0=">▶ Jalankan di DartPad</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=dfd681a536dff95d9ecdb757a764aac1&run=true">Lihat Program</button>
   </div>
+
+    <div class="card">
+    <h2>🎭Manfaat Polimorfisme</h2>
+    <p> <strong>Fleksibilitas</strong>: Kode dapat bekerja dengan berbagai tipe</p>
+    <p><strong>Extensibility:</strong> Mudah  menambah tipe baru</p>
+    <p><strong>Code Reusability:</strong> Method umum di superclass</p>
+    <p><strong>Maintainability:</strong> Perubahan mudah dikelola</p>
+  </div>
+
 
   <div class="card">
     <h2>🔍 Operator is dan as</h2>
     <div class="desc">Cek tipe objek dan konversi aman.</div>
-    <pre><code>class Kendaraan {}
+    <p>is: Mengecek tipe objek</p>
+    <p>as: Casting tipe objek</p>
+    <pre><code>
+//Nama:Ratu Klarisa
+//NIM:251410010
+//Kelas:SI2A
+
+class Kendaraan {}
 class Mobil extends Kendaraan {
   void klakson() => print('Tin! Tin!');
 }
@@ -278,12 +331,18 @@ void main() {
   // safe casting with as?
   (k as Mobil?)?.klakson();
 }</code></pre>
-    <button class="btn-run" data-code="Y2xhc3MgS2VuZGFyYWFuIHt9CmNsYXNzIE1vYmlsIGV4dGVuZHMgS2VuZGFyYWFuIHsKICB2b2lkIGtsYWtzb24oKSA9PiBwcmludCgnVGluISBUaW4hJyk7Cn0KCnZvaWQgbWFpbigpIHsKICBLZW5kYXJhYW4gayA9IE1vYmlsKCk7CiAgaWYgKGsgaXMgTW9iaWwpIHsKICAgIChrIGFzIE1vYmlsKS5rbGFrc29uKCk7CiAgfQogIChrIGFzIE1vYmlsPyk/LmtsYWtzb24oKTsKfQ==">▶ Jalankan di DartPad</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=d02382dfe2c22442f9bf97f28e8ae22c&run=true">Lihat Program</button>
   </div>
 
   <div class="card">
     <h2>🐾 Praktik 1 – Polimorfisme dengan List Hewan</h2>
-    <pre><code>abstract class Hewan {
+    <p>Membuat list hewan dengan berbagai objek subclass seperti Kucing, anjing, burung.Loop list, panggil method (bersuara)</p>
+    <pre><code>
+//Nama: Ratu Klarisa
+//Nim: 251410010
+//Kelas: SI2A
+
+abstract class Hewan {
   void bersuara();
 }
 class Kucing extends Hewan {
@@ -301,227 +360,484 @@ void main() {
     h.bersuara();
   }
 }</code></pre>
-    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgSGV3YW4gewogIHZvaWQgYmVyc3VhcmEoKTsKfQpjbGFzcyBLdWNpbmcgZXh0ZW5kcyBIZXdhbiB7CiAgQG92ZXJyaWRlCiAgdm9pZCBiZXJzdWFyYSgpID0+IHByaW50KCdNZW9uZyDwn5CxJyk7Cn0KY2xhc3MgQW5qaW5nIGV4dGVuZHMgSGV3YW4gewogIEBvdmVycmlkZQogIHZvaWQgYmVyc3VhcmEoKSA9PiBwcmludCgnR3VrIGd1ayDwn5C2Jyk7Cn0KY2xhc3MgQnVydW5nIGV4dGVuZHMgSGV3YW4gewogIEBvdmVycmlkZQogIHZvaWQgYmVyc3VhcmEoKSA9PiBwcmludCgnQ3VpdCBjdWl0IPCfkKYnKTsKfQp2b2lkIG1haW4oKSB7CiAgTGlzdDxIZXdhbj4gaGV3YW5MaXN0ID0gW0t1Y2luZygpLCBBbmppbmcoKSwgQnVydW5nKCldOwogIGZvciAodmFyIGggaW4gaGV3YW5MaXN0KSB7CiAgICBoLmJlcnN1YXJhKCk7CiAgfQp9">▶ Jalankan di DartPad</button>
-  </div>
+    <button class="btn-run" style="margin: 15px 0;" data-src="https://dartpad.dev/embed-dart.html?id=695ad4c4a29c81e65974e59d9dddb21f&run=true">Lihat Program</button>
 
+     <!-- ========== JAWABAN SLIDE 17 & CHALLENGE ========== -->
   <div class="card">
-    <h2>🧱 Abstract Class & Method</h2>
-    <pre><code>abstract class Kendaraan {
-  String? merk;
-  void start(); // abstract
-  void stop() => print('Kendaraan berhenti');
-}
-class Mobil extends Kendaraan {
-  @override
-  void start() => print('Mobil ${merk ?? 'tanpa merk'} menyala');
-}
-void main() {
-  Mobil avanza = Mobil();
-  avanza.merk = 'Toyota';
-  avanza.start();
-  avanza.stop();
-}</code></pre>
-    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgS2VuZGFyYWFuIHsKICBTdHJpbmc/IG1lcms7CiAgdm9pZCBzdGFydCgpOyAvLyBhYnN0cmFrdAogIHZvaWQgc3RvcCgpID0+IHByaW50KCdLZW5kYXJhYW4gYmVyaGVudGknKTsKfQpjbGFzcyBNb2JpbCBleHRlbmRzIEtlbmRhcmFhbiB7CiAgQG92ZXJyaWRlCiAgdm9pZCBzdGFydCgpID0+IHByaW50KCdNb2JpbCAke21lcmsgPz8gJ3RhbnBhIG1lcmsnfSBtZW55YWxhJyk7Cn0Kdm9pZCBtYWluKCkgewogIE1vYmlsIGF2YW56YSA9IE1vYmlsKCk7CiAgYXZhbnphLm1lcmsgPSAnVG95b3RhJzsKICBhdmFuemEuc3RhcnQoKTsKICBhdmFuemEuc3RvcCgpOwp9">▶ Jalankan di DartPad</button>
-  </div>
-
-  <div class="card">
-    <h2>🛸 Interface (implements)</h2>
-    <pre><code>interface class Flyable {
-  void terbang() => print('Terbang...');
-}
-class Bird implements Flyable {
-  @override void terbang() => print('Burung terbang tinggi');
-}
-class Plane implements Flyable {
-  @override void terbang() => print('Pesawat terbang cepat');
-}
-void main() {
-  Flyable f1 = Bird();
-  Flyable f2 = Plane();
-  f1.terbang();
-  f2.terbang();
-}</code></pre>
-    <button class="btn-run" data-code="aW50ZXJmYWNlIGNsYXNzIEZseWFibGUgewogIHZvaWQgdGVyYmFuZygpID0+IHByaW50KCdUZXJiYW5nLi4uJyk7Cn0KY2xhc3MgQmlyZCBpbXBsZW1lbnRzIEZseWFibGUgewogIEBvdmVycmlkZQogIHZvaWQgdGVyYmFuZygpID0+IHByaW50KCdCdXJ1bmcgdGVyYmFuZyB0aW5nZ2knKTsKfQpjbGFzcyBQbGFuZSBpbXBsZW1lbnRzIEZseWFibGUgewogIEBvdmVycmlkZQogIHZvaWQgdGVyYmFuZygpID0+IHByaW50KCdQZXNhd2F0IHRlcmJhbmcgY2VwYXQnKTsKfQp2b2lkIG1haW4oKSB7CiAgRmx5YWJsZSBmMSA9IEJpcmQoKTsKICBGbHlhYmxlIGYyID0gUGxhbmUoKTsKICBmMS50ZXJiYW5nKCk7CiAgZjIudGVyYmFuZygpOwp9">▶ Jalankan di DartPad</button>
-  </div>
-
-  <div class="card">
-    <h2>📐 Static Members (MathUtils)</h2>
-    <pre><code>class MathUtils {
-  static double pi = 3.14159;
-  static int add(int x, int y) => x + y;
-}
-void main() {
-  print('PI = ${MathUtils.pi}');
-  print('10 + 20 = ${MathUtils.add(10, 20)}');
-}</code></pre>
-    <button class="btn-run" data-code="Y2xhc3MgTWF0aFV0aWxzIHsKICBzdGF0aWMgZG91YmxlIHBpID0gMy4xNDE1OTsKICBzdGF0aWMgaW50IGFkZChpbnQgeCwgaW50IHkpID0+IHggKyB5Owp9CnZvaWQgbWFpbigpIHsKICBwcmludCgnUEkgPSAke01hdGhVdGlscy5waX0nKTsKICBwcmludCgnMTAgKyAyMCA9ICR7TWF0aFV0aWxzLmFkZCgxMCwgMjApfScpOwp9">▶ Jalankan di DartPad</button>
-  </div>
-
-  <div class="card">
-    <h2>💳 Praktik 2 – Sistem Pembayaran (Interface)</h2>
-    <pre><code>abstract class MetodePembayaran {
-  void bayar(double jumlah);
-}
-class KartuKredit implements MetodePembayaran {
-  @override void bayar(double jumlah) => print('💳 Bayar $jumlah pakai Kartu Kredit');
-}
-class EWallet implements MetodePembayaran {
-  @override void bayar(double jumlah) => print('📱 Bayar $jumlah via E-Wallet');
-}
-class Tunai implements MetodePembayaran {
-  @override void bayar(double jumlah) => print('💵 Bayar $jumlah dengan Tunai');
-}
-void main() {
-  List&lt;MetodePembayaran&gt; methods = [KartuKredit(), EWallet(), Tunai()];
-  for (var m in methods) {
-    m.bayar(75000);
-  }
-}</code></pre>
-    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgTWV0b2RlUGVtYmF5YXJhbiB7CiAgdm9pZCBiYXlhcihkb3VibGUganVtbGFoKTsKfQpjbGFzcyBLYXJ0dUtSZWRpdCBpbXBsZW1lbnRzIE1ldG9kZVBlbWJheWFyYW4gewogIEBvdmVycmlkZQogIHZvaWQgYmF5YXIoZG91YmxlIGp1bWxhaCkgPT4gcHJpbnQoJ+KUjvKliyBCYXlhciAkanVtbGFoIHBha2FpIEthcnR1IEtyZWRpdCcpOwp9CmNsYXNzIEVXYWxsZXQgaW1wbGVtZW50cyBNZXRvZGVQZW1iYXlhcmFuIHsKICBAb3ZlcnJpZGUKICB2b2lkIGJheWFyKGRvdWJsZSBqdW1sYWgpID0+IHByaW50KCfwn5GxIEJheWFyICRqdW1sYWggdmlhIEUtV2FsbGV0Jyk7Cn0KY2xhc3MgVHVuYWkgaW1wbGVtZW50cyBNZXRvZGVQZW1iYXlhcmFuIHsKICBAb3ZlcnJpZGUKICB2b2lkIGJheWFyKGRvdWJsZSBqdW1sYWgpID0+IHByaW50KCfwn5K1IEJheWFyICRqdW1sYWggZGVuZ2FuIFR1bmFpJyk7Cn0Kdm9pZCBtYWluKCkgewogIExpc3Q8TWV0b2RlUGVtYmF5YXJhbj4gbWV0aG9kcyA9IFtLYXJ0dUtSZWRpdCgpLCBFV2FsbGV0KCksIFR1bmFpKCldOwogIGZvciAodmFyIG0gaW4gbWV0aG9kcykgewogICAgbS5iYXlhckBNeSBudWxsIDogNzUwMDA7CiAgfQp9">▶ Jalankan di DartPad</button>
-  </div>
-
-  <!-- ========== JAWABAN SLIDE 17 & CHALLENGE ========== -->
-  <div class="card">
-    <h2>📌 Jawaban Soal Slide 17 – Pekerja & Polimorfisme</h2>
+    <h2>📌 Jawaban Soal(Bonus)Slide 17 – Pekerja & Polimorfisme(Bonus 1)</h2>
     <div class="desc">1. Abstract class Pekerja dengan method bekerja(). 2. Tiga implementasi: Programmer, Dokter, Guru. 3. List&lt;Pekerja&gt; dan polimorfisme.</div>
-    <pre><code>abstract class Pekerja {
-  void bekerja();  // abstract
-  void istirahat() => print('Istirahat sebentar');
+    <pre><code>//Nama: Ratu klarisa 
+//Nim: 251410010
+//Kelas: SI2A
+
+// Abstract class
+abstract class Pekerja {
+  void bekerja(); // abstract method
+
+  void info() {
+    print('Saya adalah seorang pekerja');
+  }
 }
 
-class Programmer implements Pekerja {
+// Class turunan
+class Programmer extends Pekerja {
   @override
-  void bekerja() => print('💻 Programmer sedang menulis kode Dart');
+  void bekerja() {
+    print('Programmer sedang coding');
+  }
 }
 
-class Dokter implements Pekerja {
+class Dokter extends Pekerja {
   @override
-  void bekerja() => print('🏥 Dokter sedang memeriksa pasien');
+  void bekerja() {
+    print('Dokter sedang mengobati pasien');
+  }
 }
 
-class Guru implements Pekerja {
+class Guru extends Pekerja {
   @override
-  void bekerja() => print('📚 Guru sedang mengajar di kelas');
+  void bekerja() {
+    print('Guru sedang mengajar');
+  }
 }
 
 void main() {
-  List&lt;Pekerja&gt; daftarPekerja = [Programmer(), Dokter(), Guru()];
-  for (var p in daftarPekerja) {
+  // Polimorfisme (List Pekerja)
+  List<Pekerja> pekerjaList = [
+    Programmer(),
+    Dokter(),
+    Guru()
+  ];
+
+  for (var p in pekerjaList) {
+    p.info();
     p.bekerja();
-    p.istirahat();
     print('---');
   }
 }</code></pre>
-    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgUGVrZXJqYSB7CiAgdm9pZCBiZWtlcmphKCk7CiAgdm9pZCBpc3RpcmFoYXQoKSA9PiBwcmludCgnSXN0aXJhaGF0IHNlYmVudGFyJyk7Cn0KY2xhc3MgUHJvZ3JhbW1lciBpbXBsZW1lbnRzIFBla2VyamEgewogIEBvdmVycmlkZQogIHZvaWQgYmVrZXJqYSgpID0+IHByaW50KCfwn5K8IFByb2dyYW1tZXIgc2VkYW5nIG1lbnVsaXMga29kZSBEYXJ0Jyk7Cn0KY2xhc3MgRG9rdGVyIGltcGxlbWVudHMgUGVrZXJqYSB7CiAgQG92ZXJyaWRlCiAgdm9pZCBiZWtlcmphKCkgPT4gcHJpbnQoJ/CfpKEgRG9rdGVyIHNlZGFuZyBtZW1lcmlrc2EgcGFzaWVuJyk7Cn0KY2xhc3MgR3VydSBpbXBsZW1lbnRzIFBla2VyamEgewogIEBvdmVycmlkZQogIHZvaWQgYmVrZXJqYSgpID0+IHByaW50KCfwn5OaIEd1cnUgc2VkYW5nIG1lbmdhamFyIGRpIGtlbGFzJyk7Cn0Kdm9pZCBtYWluKCkgewogIExpc3Q8UGVrZXJqYT4gZGFmdGFyUGVrZXJqYSA9IFtQcm9ncmFtbWVyKCksIERva3RlcigpLCBHdXJ1KCldOwogIGZvciAodmFyIHAgaW4gZGFmdGFyUGVrZXJqYSkgewogICAgcC5iZWtlcmphKCk7CiAgICBwLmlzdGlyYWhhdCgpOwogICAgcHJpbnQoJy0tLScpOwogIH0KfQ==">▶ Jalankan di DartPad</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=d136b270bec418e26e894f676f02b542&run=true">Lihat Program</button>
   </div>
 
   <div class="card">
-    <h2>📱 Tablet – Multiple Inheritance dengan implements/mixins</h2>
-    <div class="desc">4. Class Tablet mewarisi kemampuan Komputer, Kamera, Telepon (multiple inheritance disimulasikan dengan implements).</div>
-    <pre><code>class Komputer {
-  void komputasi() => print('💻 Menjalankan sistem operasi');
-}
-class Kamera {
-  void ambilFoto() => print('📸 Mengambil foto');
-}
-class Telepon {
-  void telpon(String nomor) => print('📞 Menelpon $nomor');
+    <h2>📱 4.Tablet – Multiple Inheritance dengan implements/mixins(Bonus 2)</h2>
+    <div class="desc">Class Tablet mewarisi kemampuan Komputer, Kamera, Telepon (multiple inheritance disimulasikan dengan implements).</div>
+    <pre><code>//Nama: Ratu Klarisa 
+//Nim: 251410010
+//Kelas: SI2A
+
+class Komputer {
+  void hitung() {
+    print('Komputer menghitung data');
+  }
 }
 
+class Kamera {
+  void foto() {
+    print('Kamera mengambil gambar');
+  }
+}
+
+class Telepon {
+  void telepon() {
+    print('Telepon melakukan panggilan');
+  }
+}
+
+// Tablet mewarisi semuanya (implements)
 class Tablet implements Komputer, Kamera, Telepon {
   @override
-  void komputasi() => print('💻 Tablet menjalankan aplikasi produktif');
+  void hitung() {
+    print('Tablet menghitung data');
+  }
+
   @override
-  void ambilFoto() => print('📸 Tablet mengambil foto selfie');
+  void foto() {
+    print('Tablet mengambil gambar');
+  }
+
   @override
-  void telpon(String nomor) => print('📞 Tablet melakukan panggilan video ke $nomor');
+  void telepon() {
+    print('Tablet melakukan panggilan');
+  }
 }
 
 void main() {
-  Tablet myTab = Tablet();
-  myTab.komputasi();
-  myTab.ambilFoto();
-  myTab.telpon('08123456789');
+  Tablet tablet = Tablet();
+  tablet.hitung();
+  tablet.foto();
+  tablet.telepon();
 }</code></pre>
-    <button class="btn-run" data-code="Y2xhc3MgS29tcHV0ZXIgewogIHZvaWQga29tcHV0YXNpKCkgPT4gcHJpbnQoJ/CfhKsgTWVuamFsYW5rYW4gc2lzdGVtIG9wZXJhc2knKTsKfQpjbGFzcyBLYW1lcmEgewogIHZvaWQgYW1iaWxGb3RvKCkgPT4gcHJpbnQoJ/CfjLggTWVuZ2FtYmlsIGZvdG8nKTsKfQpjbGFzcyBUZWxlcG9uIHsKICB2b2lkIHRlbHBvbihTdHJpbmcgbm9tb3IpID0+IHByaW50KCfwn5ORIE1lbmVsb25vICRub21vcicpOwp9CgpjbGFzcyBUYWJsZXQgaW1wbGVtZW50cyBLb21wdXRlciwgS2FtZXJhLCBUZWxlcG9uIHsKICBAb3ZlcnJpZGUKICB2b2lkIGtvbXB1dGFzaSgpID0+IHByaW50KCfwn4SrIFRhYmxldCBtZW5qYWxhbmthbiBhcGxpa2FzaSBwcm9kdWt0aWYnKTsKICBAb3ZlcnJpZGUKICB2b2lkIGFtYmlsRm90bygpID0+IHByaW50KCfwn4y4IFRhYmxldCBtZW5nYW1iaWwgZm90byBzZWxmaWUnKTsKICBAb3ZlcnJpZGUKICB2b2lkIHRlbHBvbihTdHJpbmcgbm9tb3IpID0+IHByaW50KCfwn5GRIFRhYmxldCBtZWxha3VrYW4gcGFuZ2dpbGFuIHZpZGVvIGtlICRub21vcicpOwp9Cgp2b2lkIG1haW4oKSB7CiAgVGFibGV0IG15VGFiID0gVGFibGV0KCk7CiAgbXlUYWIua29tcHV0YXNpKCk7CiAgbXlUYWIuYW1iaWxGb3RvKCk7CiAgbXlUYWIudGVscG9uKCcwODEyMzQ1Njc4OScpOwp9">▶ Jalankan di DartPad</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=84ecab010a57f0f479a7e59ac1bf5749&run=true">Lihat Program</button>
   </div>
 
   <div class="card">
-    <h2>🧮 MathUtils – Static Methods (Faktorial, Prima, Random, Rata2, Median)</h2>
-    <pre><code>import 'dart:math';
+    <h2>🧮 5.MathUtils – Static Methods (Faktorial, Prima, Random, Rata2, Median)(Bonus 3)</h2>
+    <pre><code>//Nama:Ratu Klarisa
+//Nim: 251410010
+//Kelas:SI2A
+
+import 'dart:math';
 
 class MathUtils {
-  static int factorial(int n) {
-    if (n &lt; 0) throw ArgumentError('Harus >=0');
-    return n &lt;= 1 ? 1 : n * factorial(n - 1);
+  // Faktorial
+  static int faktorial(int n) {
+    if (n <= 1) return 1;
+    return n * faktorial(n - 1);
   }
-  static bool isPrime(int n) {
-    if (n &lt; 2) return false;
-    for (int i = 2; i &lt;= sqrt(n); i++) {
+
+  // Cek bilangan prima
+  static bool isPrima(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
       if (n % i == 0) return false;
     }
     return true;
   }
-  static double roundToDecimals(double value, int decimals) {
-    double mod = pow(10, decimals).toDouble();
-    return (value * mod).round() / mod;
+
+  // Membulatkan
+  static double bulatkan(double angka, int digit) {
+    return double.parse(angka.toStringAsFixed(digit));
   }
-  static int randomInt(int min, int max) => min + Random().nextInt(max - min + 1);
-  static double randomDouble(double min, double max) => min + Random().nextDouble() * (max - min);
-  static double average(List&lt;num&gt; numbers) => numbers.isEmpty ? 0 : numbers.reduce((a,b)=>a+b) / numbers.length;
-  static double median(List&lt;num&gt; numbers) {
-    if (numbers.isEmpty) return 0;
-    var sorted = List&lt;num&gt;.from(numbers)..sort();
-    int mid = sorted.length ~/ 2;
-    if (sorted.length.isEven) {
-      return (sorted[mid - 1] + sorted[mid]) / 2;
+
+  // Random integer
+  static int randomInt(int min, int max) {
+    return min + Random().nextInt(max - min + 1);
+  }
+
+  // Rata-rata
+  static double rataRata(List<int> data) {
+    return data.reduce((a, b) => a + b) / data.length;
+  }
+
+  // Median
+  static double median(List<int> data) {
+    data.sort();
+    int n = data.length;
+    if (n % 2 == 0) {
+      return (data[n ~/ 2 - 1] + data[n ~/ 2]) / 2;
     } else {
-      return sorted[mid].toDouble();
+      return data[n ~/ 2].toDouble();
     }
   }
 }
 
 void main() {
-  print('Faktorial 5: ${MathUtils.factorial(5)}');
-  print('17 prima? ${MathUtils.isPrime(17)}');
-  print('3.14159 2 desimal: ${MathUtils.roundToDecimals(3.14159, 2)}');
-  print('Random int 1-10: ${MathUtils.randomInt(1,10)}');
-  print('Random double 0-1: ${MathUtils.randomDouble(0,1).toStringAsFixed(4)}');
-  print('Rata2 [2,4,6]: ${MathUtils.average([2,4,6])}');
-  print('Median [3,1,5,7]: ${MathUtils.median([3,1,5,7])}');
+  print(MathUtils.faktorial(5));
+  print(MathUtils.isPrima(7));
+  print(MathUtils.bulatkan(3.14159, 2));
+  print(MathUtils.randomInt(1, 10));
+  print(MathUtils.rataRata([10, 20, 30]));
+  print(MathUtils.median([10, 20, 30, 40]));
 }</code></pre>
-    <button class="btn-run" data-code="aW1wb3J0ICdkYXJ0Om1hdGgnOwoKY2xhc3MgTWF0aFV0aWxzIHsKICBzdGF0aWMgaW50IGZhY3RvcmlhbChpbnQgbikgewogICAgaWYgKG4gPCAwKSB0aHJvdyBBcmd1bWVudEVycm9yKCdIYXJ1cyA+PTAnKTsKICAgIHJldHVybiBuIDw9IDEgPyAxIDogbiAqIGZhY3RvcmlhbChuIC0gMSk7CiAgfQogIHN0YXRpYyBib29sIGlzUHJpbWUoaW50IG4pIHsKICAgIGlmIChuIDwgMikgcmV0dXJuIGZhbHNlOwogICAgZm9yIChpbnQgaSA9IDI7IGkgPD0gc3FydChuKTsgaSsrKSB7CiAgICAgIGlmIChuICUgaSA9PSAwKSByZXR1cm4gZmFsc2U7CiAgICB9CiAgICByZXR1cm4gdHJ1ZTsKICB9CiAgc3RhdGljIGRvdWJsZSByb3VuZFRvRGVjaW1hbHMoZG91YmxlIHZhbHVlLCBpbnQgZGVjaW1hbHMpIHsKICAgIGRvdWJsZSBtb2QgPSBwb3coMTAsIGRlY2ltYWxzKS50b0RvdWJsZSgpOwogICAgcmV0dXJuICh2YWx1ZSAqIG1vZCkucm91bmQoKSAvIG1vZDsKICB9CiAgc3RhdGljIGludCByYW5kb21JbnQoaW50IG1pbiwgaW50IG1heCkgPT4gbWluICsgUmFuZG9tKCkubmV4dEludChtYXggLSBtaW4gKyAxKTsKICBzdGF0aWMgZG91YmxlIHJhbmRvbURvdWJsZShkb3VibGUgbWluLCBkb3VibGUgbWF4KSA9PiBtaW4gKyBSYW5kb20oKS5uZXh0RG91YmxlKCkgKiAobWF4IC0gbWluKTsKICBzdGF0aWMgZG91YmxlIGF2ZXJhZ2UoTGlzdDxudW0+IG51bWJlcnMpID0+IG51bWJlcnMuaXNFbXB0eSA/IDAgOiBudW1iZXJzLnJlZHVjZSgoYSxiKT0+YStiKSAvIG51bWJlcnMubGVuZ3RoOwogIHN0YXRpYyBkb3VibGUgbWVkaWFuKExpc3Q8bnVtPiBudW1iZXJzKSB7CiAgICBpZiAobnVtYmVycy5pc0VtcHR5KSByZXR1cm4gMDsKICAgIHZhciBzb3J0ZWQgPSBMaXN0PG51bT4uZnJvbShudW1iZXJzKQogICAgICAuLi5zb3J0KCk7CiAgICBpbnQgbWlkID0gc29ydGVkLmxlbmd0aCB+LyAyOwogICAgaWYgKHNvcnRlZC5sZW5ndGguaXNFdmVuKSB7CiAgICAgIHJldHVybiAoc29ydGVkW21pZCAtIDFdICsgc29ydGVkW21pZF0pIC8gMjsKICAgIH0gZWxzZSB7CiAgICAgIHJldHVybiBzb3J0ZWRbbWlkXS50b0RvdWJsZSgpOwogICAgfQogIH0KfQoKdm9pZCBtYWluKCkgewogIHByaW50KCdGYWt0b3JpYWwgNTogJHtNYXRoVXRpbHMuZmFjdG9yaWFsKDUpfScpOwogIHByaW50KCcxNyBwcmltYT8gJHtNYXRoVXRpbHMuaXNQcmltZSgxNyl9Jyk7CiAgcHJpbnQoJzMuMTQxNTkgMiBkZXNpbWFsOiAke01hdGhVdGlscy5yb3VuZFRvRGVjaW1hbHMoMy4xNDE1OSwgMil9Jyk7CiAgcHJpbnQoJ1JhbmRvbSBpbnQgMS0xMDogJHtNYXRoVXRpbHMucmFuZG9tSW50KDEsMTApfScpOwogIHByaW50KCdSYW5kb20gZG91YmxlIDAtMTogJHtNYXRoVXRpbHMucmFuZG9tRG91YmxlKDAsMSkudG9TdHJpbmdBc0ZpeGVkKDQpfScpOwogIHByaW50KCdSYXRhMiBbMiw0LDZdOiAke01hdGhVdGlscy5hdmVyYWdlKFsyLDQsNl0pfScpOwogIHByaW50KCdNZWRpYW4gWzMsMSw1LDddOiAke01hdGhVdGlscy5tZWRpYW4oWzMsMSw1LDddKX0nKTsKfQ==">▶ Jalankan di DartPad</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=0c0578e0b81fc53b72eddf61115d650f&run=true">Lihat Program</button>
+  </div>
+
+    </div>
+
+  <div class="card">
+    <h2>Pengantar abstraksi</h2>
+    <p> <strong>Konsep:</strong> Proses menyembunyikan detail teknis implementasi dan hanya menampilkan fungsi utamanya.</p>
+<p><strong>Tujuan: </strong><ujuan:>
+<p>i.Menekankan pada “apa yang dilakukan” bukan “bagaimana cara melakukannya”</p>
+<p>ii.Menjadi aturan atau kontrak yang wajib diikuti</p>
+<p>iii.Memberikan kebebasan dalam pengembangan implementasi</p>
+<p><strong>Cara di Dart:</strong> Menggunakan abstract class dan interface</p>
   </div>
 
   <div class="card">
-    <h2>🎵 Challenge: MediaPlayer + Playable/Pausable</h2>
-    <div class="desc">Abstract MediaPlayer, interface Playable & Pausable, class AudioPlayer & VideoPlayer.</div>
-    <pre><code>abstract class MediaPlayer {
-  void info() => print('Media Player aktif');
+    <h2>🧱 Abstract Class</h2>
+    <p>Abstract class adalah kelas yang tidak dapat dibuat objeknya secara langsung, melainkan digunakan sebagai dasar (parent) bagi kelas lain.</p>
+    <p>Kelas ini dapat berisi method abstract (tanpa isi) yang wajib diimplementasikan oleh subclass, serta method concrete (dengan isi) yang bisa</p>
+    <p>langsung digunakan.</p>
+    <p><strong>Contoh di dart:</strong></p>
+    <pre><code>//Nama: Ratu Klarisa
+//Nim: 251410010
+//Kelas: SI2A
+
+
+abstract class Kendaraan {
+  String? merk; // Field
+
+  void start(); // Method abstract
+
+  void stop() { // Method concrete
+    print('Kendaraan berhenti');
+  }
 }
-interface class Playable {
-  void play();
+
+class Mobil extends Kendaraan {
+  @override
+  void start() {
+    print('Mobil $merk menyala');
+  }
 }
-interface class Pausable {
-  void pause();
+
+void main() {
+  Mobil mobil = Mobil();
+  mobil.merk = "Toyota";
+
+  mobil.start();
+  mobil.stop();
 }
-class AudioPlayer implements MediaPlayer, Playable, Pausable {
-  @override void play() => print('🎵 Memutar audio...');
-  @override void pause() => print('⏸ Audio dijeda');
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=d24478b49abb0e7d4e24d804d3cd0b55&run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>🧱 Abstract Method</h2>
+    <p>Abstract method adalah method yang tidak memiliki isi (tanpa implementasi) di dalam abstract class dan harus </p>
+    <p>diimplementasikan (di-override) oleh subclass. Method ini berfungsi sebagai “kontrak” yang wajib diikuti oleh </p>
+    <p>setiap kelas turunan.</p>
+    <pre><code>// Nama: Ratu Klarisa
+// Nim: 251410010
+// Kelas: SI2A
+
+abstract class AlatMusik {
+  void mainkan(); // Abstract method
+
+  void info() {
+    // Concrete method
+    print('Ini adalah alat musik');
+  }
 }
-class VideoPlayer implements MediaPlayer, Playable, Pausable {
-  @override void play() => print('🎬 Memutar video...');
-  @override void pause() => print('⏸ Video dijeda');
+
+class Gitar extends AlatMusik {
+  @override
+  void mainkan() {
+    print('Jreng jreng...');
+  }
+}
+
+void main() {
+  Gitar gitar = Gitar();
+  gitar.info();
+  gitar.mainkan();
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=b155cb026bb5a1db67fdd7033d11ef74&run=true">Lihat Program</button>
+  </div>
+
+
+  <div class="card">
+    <h2>🛸 Interface (implements)</h2>
+    <p>Interface di Dart (Sejak Dart 3.0)</p>
+    <p>Interface adalah struktur yang digunakan untuk mendefinisikan method tanpa implementasi sebagai</p>
+    <p>“kontrak” yang harus dipenuhi oleh class lain. Di Dart, setiap class secara otomatis dapat menjadi interface</p>
+    <p>(implicit interface), dan keyword interface digunakan untuk memperjelas peran tersebut.</p>
+    <pre><code>//Nama: Ratu Klarisa
+//Nim: 251410010
+//Kelas: SI2A
+
+      abstract class Flyable {
+  void terbang();
+}
+
+class Bird implements Flyable {
+  @override
+  void terbang() {
+    print('Burung terbang tinggi');
+  }
+}
+
+class Plane implements Flyable {
+  @override
+  void terbang() {
+    print('Pesawat terbang cepat');
+  }
+}
+
+void main() {
+  Bird burung = Bird();
+  Plane pesawat = Plane();
+
+  burung.terbang();
+  pesawat.terbang();
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=617cda7b9238ca31283f55eda88a71c3&run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>📐 Static Members (MathUtils)</h2>
+    <p><strong>Static members</strong> adalah properti atau method yang dimiliki oleh class itu</p>
+<p>sendiri, bukan oleh objek class. Static member diakses langsung melalui class name.</p>
+<p>Properti dan method static sangat berguna untuk membuat utility class</p>
+<p>atau menyimpan konstanta yang terkait dengan class, sehingga dapat diakses</p>
+<p>langsung tanpa perlu membuat objek.</p>
+    <pre><code>/Nama: Ratu Klarisa
+//Nim: 251410010
+//Kelas: SI2A
+
+class MathUtils {
+static double pi = 3.14;
+static int add(int x, int y) {
+return x + y;
+}
 }
 void main() {
-  List&lt;Playable&gt; players = [AudioPlayer(), VideoPlayer()];
-  for (var p in players) {
-    p.play();
-    if (p is Pausable) p.pause();
-    print('---');
+print('Nilai pi : ${MathUtils.pi}');
+print('Result : ${MathUtils.add(10, 20)}');
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=9588fc99a3e4530b59b0ca7c609f54b6&run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>💳 Praktik 2 – Sistem Pembayaran (Interface)</h2>
+    <pre><code>//Nama: Ratu Klarisa
+//Nim: 251410010
+//Kelas: SI2A
+
+abstract class MetodePembayaran {
+  void bayar(double jumlah);
+}
+
+class KartuKredit implements MetodePembayaran {
+  @override
+  void bayar(double jumlah) {
+    print('Bayar $jumlah dengan Kartu Kredit');
   }
-}</code></pre>
-    <button class="btn-run" data-code="YWJzdHJhY3QgY2xhc3MgTWVkaWFQbGF5ZXIgewogIHZvaWQgaW5mbygpID0+IHByaW50KCdNZWRpYSBQbGF5ZXIgYWt0aWYnKTsKfQppbnRlcmZhY2UgY2xhc3MgUGxheWFibGUgewogIHZvaWQgcGxheSgpOwp9CmludGVyZmFjZSBjbGFzcyBQYXVzYWJsZSB7CiAgdm9pZCBwYXVzZSgpOwp9CmNsYXNzIEF1ZGlvUGxheWVyIGltcGxlbWVudHMgTWVkaWFQbGF5ZXIsIFBsYXlhYmxlLCBQYXVzYWJsZSB7CiAgQG92ZXJyaWRlCiAgdm9pZCBwbGF5KCkgPT4gcHJpbnQoJ/CfkJUgTWVtdXRhciBhdWRpby4uLicpOwogIEBvdmVycmlkZQogIHZvaWQgcGF1c2UoKSA9PiBwcmludCgn4o+8IEF1ZGlvIGRpamVkYScpOwp9CmNsYXNzIFZpZGVvUGxheWVyIGltcGxlbWVudHMgTWVkaWFQbGF5ZXIsIFBsYXlhYmxlLCBQYXVzYWJsZSB7CiAgQG92ZXJyaWRlCiAgdm9pZCBwbGF5KCkgPT4gcHJpbnQoJ/CfjKwgTWVtdXRhciB2aWRlby4uLicpOwogIEBvdmVycmlkZQogIHZvaWQgcGF1c2UoKSA9PiBwcmludCgn4o+8IFZpZGVvIGRpamVkYScpOwp9CnZvaWQgbWFpbigpIHsKICBMaXN0PFBsYXlhYmxlPiBwbGF5ZXJzID0gW0F1ZGlvUGxheWVyKCksIFZpZGVvUGxheWVyKCldOwogIGZvciAodmFyIHAgaW4gcGxheWVycykgewogICAgcC5wbGF5KCk7CiAgICBpZiAocCBpcyBQYXVzYWJsZSkgKHAgYXMgUGF1c2FibGUpLnBhdXNlKCk7CiAgICBwcmludCgnLS0tJyk7CiAgfQp9">▶ Jalankan di DartPad</button>
+}
+
+class EWallet implements MetodePembayaran {
+  @override
+  void bayar(double jumlah) {
+    print('Bayar $jumlah dengan E-Wallet');
+  }
+}
+
+class Tunai implements MetodePembayaran {
+  @override
+  void bayar(double jumlah) {
+    print('Bayar $jumlah dengan Tunai');
+  }
+}
+
+void main() {
+  MetodePembayaran metode1 = KartuKredit();
+  MetodePembayaran metode2 = EWallet();
+  MetodePembayaran metode3 = Tunai();
+
+  metode1.bayar(50000);
+  metode2.bayar(25000);
+  metode3.bayar(10000);
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=c38c45167aa8036c5a2cf884bb41698f&run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>Studi kasus: Sistem Bentuk Geometri</h2>
+    <pre><code>//Nama: Ratu Klarisa 
+//Nim: 251410010
+//Kelas: SI2A
+
+abstract class Bentuk {
+  double hitungLuas();
+  double hitungKeliling();
+  
+  void info() {
+    print('Luas: ${hitungLuas()}, Keliling: ${hitungKeliling()}');
+  }
+}
+
+class Persegi extends Bentuk {
+  double sisi;
+  Persegi(this.sisi);
+  
+  @override
+  double hitungLuas() => sisi * sisi;
+  
+  @override
+  double hitungKeliling() => 4 * sisi;
+}
+
+class Lingkaran extends Bentuk {
+  double radius;
+  Lingkaran(this.radius);
+  
+  @override
+  double hitungLuas() => 3.14 * radius * radius;
+  
+  @override
+  double hitungKeliling() => 2 * 3.14 * radius;
+}
+
+void main() {
+  Persegi p = Persegi(4);
+  Lingkaran l = Lingkaran(7);
+
+  p.info();
+  l.info();
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=c8efeeafac20f6760ff79d8948d68821&run=true">Lihat Program</button>
+  </div>
+  
+  <div class="card">
+    <h2>🎵 Challenge: MediaPlayer + Playable/Pausable</h2>
+    <div class="desc">Abstract MediaPlayer, interface Playable & Pausable, class AudioPlayer & VideoPlayer.</div>
+    <pre><code>//Nama: Ratu Klarisa 
+//Nim: 251410010
+//Kelas: SI2A
+
+// Abstract class
+abstract class MediaPlayer {
+  void info() {
+    print('Media Player aktif');
+  }
+}
+
+// Interface (pakai abstract class di Dart)
+abstract class Playable {
+  void play();
+}
+
+abstract class Pausable {
+  void pause();
+}
+
+// Class implementasi
+class AudioPlayer extends MediaPlayer implements Playable, Pausable {
+  @override
+  void play() {
+    print('Memutar audio...');
+  }
+
+  @override
+  void pause() {
+    print('Audio dijeda');
+  }
+}
+
+class VideoPlayer extends MediaPlayer implements Playable, Pausable {
+  @override
+  void play() {
+    print('Memutar video...');
+  }
+
+  @override
+  void pause() {
+    print('Video dijeda');
+  }
+}
+
+void main() {
+  AudioPlayer audio = AudioPlayer();
+  VideoPlayer video = VideoPlayer();
+
+  audio.info();
+  audio.play();
+  audio.pause();
+
+  print('---');
+
+  video.info();
+  video.play();
+  video.pause();
+}
+</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=b311c2d137a30e000d96fa1277a8dd0b&run=true">Lihat Program</button>
   </div>
 
   <div class="card">
@@ -559,33 +875,21 @@ void main() {
   const closeBtn = document.getElementById('closeModalBtn');
   const modalTitle = document.getElementById('modalTitle');
 
-  function openDartPad(codeBase64, programTitle) {
-    // encode code properly if needed (already base64? but we'll pass via 'code' parameter with URI encoding)
-    // The data-code attribute is already base64-encoded dart code. Decode for display? Not needed.
-    // Build dartpad embed URL with code parameter (URL encoded base64 decoded code)
-    try {
-      const decodedCode = atob(codeBase64);
-      const codeParam = encodeURIComponent(decodedCode);
-      const url = `https://dartpad.dev/embed-dart.html?code=${codeParam}&run=true`;
-      modalIframe.src = url;
-      modalTitle.innerText = programTitle;
-      modal.style.display = 'flex';
-    } catch(e) {
-      modalTitle.innerText = 'Error loading code';
-      modalIframe.src = 'about:blank';
-      modal.style.display = 'flex';
-    }
+  function openDartPad(embedUrl, programTitle) {
+    modalIframe.src = embedUrl;
+    modalTitle.innerText = programTitle;
+    modal.style.display = 'flex';
   }
 
   document.querySelectorAll('.btn-run').forEach(btn => {
     btn.addEventListener('click', () => {
-      const codeB64 = btn.getAttribute('data-code');
+      const src = btn.getAttribute('data-src');
       const card = btn.closest('.card');
       const programName = card?.querySelector('h2')?.innerText || 'Program Dart';
-      if (codeB64) {
-        openDartPad(codeB64, programName);
+      if (src) {
+        openDartPad(src, programName);
       } else {
-        alert('Kode tidak tersedia');
+        alert('URL tidak tersedia');
       }
     });
   });
